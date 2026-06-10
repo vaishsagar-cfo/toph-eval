@@ -1,0 +1,22 @@
+Started by timer trigger
+Building in workspace /var/lib/jenkins/workspace/optum-pharmacy-claims-nightly
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on agent-prod-03 in /var/lib/jenkins/workspace/optum-pharmacy-claims-nightly
+[Pipeline] stage
+[01:00:01] Stage: Extract
+[01:00:01]   Triggering ADF pipeline: adf-pharmacy-pos-extract
+[01:00:23]   ADF pipeline completed. Status: Succeeded
+[01:00:23] Stage: Extract     PASSED  (duration: 00:00:22)
+[Pipeline] stage
+[01:00:24] Stage: Transform
+[01:00:24]   Triggering Databricks job: db-pharmacy-transform
+[01:00:29]   Databricks job completed. Status: Succeeded
+[01:00:29] Stage: Transform   PASSED  (duration: 00:00:05)
+[Pipeline] stage
+[01:00:30] Stage: Load
+[01:00:30]   Triggering Synapse pipeline: syn-load-pharmacy-claims
+[01:00:33]   Synapse pipeline completed. Status: Succeeded
+[01:00:33] Stage: Load        PASSED  (duration: 00:00:03)
+[Pipeline] End of Pipeline
+[01:00:34] Finished: SUCCESS

@@ -1,0 +1,7 @@
+[
+  {"timestamp": "2025-05-17T01:00:01Z", "pipeline": "adf-pharmacy-pos-extract", "runId": "adf-run-20250517-0100", "event": "PipelineStarted", "source": "pharmacy-pos-prod", "queryWindow": {"start": "2025-05-16T00:00:00Z", "end": "2025-05-16T23:59:59Z"}},
+  {"timestamp": "2025-05-17T01:00:04Z", "pipeline": "adf-pharmacy-pos-extract", "runId": "adf-run-20250517-0100", "event": "SourceConnectionEstablished", "source": "pharmacy-pos-prod", "status": "OK"},
+  {"timestamp": "2025-05-17T01:00:06Z", "pipeline": "adf-pharmacy-pos-extract", "runId": "adf-run-20250517-0100", "event": "QueryExecuted", "rowsRead": 0, "durationMs": 1240, "note": "Source returned empty result set for query window"},
+  {"timestamp": "2025-05-17T01:00:07Z", "pipeline": "adf-pharmacy-pos-extract", "runId": "adf-run-20250517-0100", "event": "StagingWrite", "destination": "adls://optum-datalake-prod/raw/pharmacy/2025-05-16/claims.parquet", "rowsWritten": 0, "fileSizeBytes": 1024},
+  {"timestamp": "2025-05-17T01:00:22Z", "pipeline": "adf-pharmacy-pos-extract", "runId": "adf-run-20250517-0100", "event": "PipelineSucceeded", "totalRowsExtracted": 0, "durationMs": 21000, "status": "Succeeded"}
+]

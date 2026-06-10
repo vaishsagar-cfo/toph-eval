@@ -1,0 +1,6 @@
+[
+  {"timestamp": "2025-05-17T01:00:30Z", "pipeline": "syn-load-pharmacy-claims", "runId": "syn-run-20250517-0100", "event": "PipelineStarted", "target": "claims_dw.dbo.pharmacy_claims"},
+  {"timestamp": "2025-05-17T01:00:30Z", "pipeline": "syn-load-pharmacy-claims", "runId": "syn-run-20250517-0100", "event": "SourceRead", "path": "adls://optum-datalake-prod/staging/pharmacy/2025-05-16/claims_clean.parquet", "rowsRead": 0},
+  {"timestamp": "2025-05-17T01:00:31Z", "pipeline": "syn-load-pharmacy-claims", "runId": "syn-run-20250517-0100", "event": "TargetWrite", "table": "claims_dw.dbo.pharmacy_claims", "rowsInserted": 0, "durationMs": 890},
+  {"timestamp": "2025-05-17T01:00:33Z", "pipeline": "syn-load-pharmacy-claims", "runId": "syn-run-20250517-0100", "event": "PipelineSucceeded", "totalRowsLoaded": 0, "durationMs": 3000, "status": "Succeeded"}
+]

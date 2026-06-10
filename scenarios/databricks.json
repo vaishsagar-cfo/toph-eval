@@ -1,0 +1,9 @@
+[
+  {"timestamp": "2025-05-17T01:00:24Z", "job": "db-pharmacy-transform", "runId": "db-run-20250517-0100", "cluster": "db-prod-etl-02", "event": "JobStarted"},
+  {"timestamp": "2025-05-17T01:00:25Z", "job": "db-pharmacy-transform", "runId": "db-run-20250517-0100", "event": "InputRead", "path": "adls://optum-datalake-prod/raw/pharmacy/2025-05-16/claims.parquet", "rowsIngested": 0},
+  {"timestamp": "2025-05-17T01:00:25Z", "job": "db-pharmacy-transform", "runId": "db-run-20250517-0100", "event": "TransformStep", "step": "ndc_normalize", "rowsIn": 0, "rowsOut": 0, "status": "OK"},
+  {"timestamp": "2025-05-17T01:00:26Z", "job": "db-pharmacy-transform", "runId": "db-run-20250517-0100", "event": "TransformStep", "step": "member_eligibility", "rowsIn": 0, "rowsOut": 0, "rowsDropped": 0, "status": "OK"},
+  {"timestamp": "2025-05-17T01:00:26Z", "job": "db-pharmacy-transform", "runId": "db-run-20250517-0100", "event": "TransformStep", "step": "formulary_mapping", "rowsIn": 0, "rowsOut": 0, "status": "OK"},
+  {"timestamp": "2025-05-17T01:00:27Z", "job": "db-pharmacy-transform", "runId": "db-run-20250517-0100", "event": "HandoffWrite", "destination": "adls://optum-datalake-prod/staging/pharmacy/2025-05-16/claims_clean.parquet", "rowsWritten": 0},
+  {"timestamp": "2025-05-17T01:00:29Z", "job": "db-pharmacy-transform", "runId": "db-run-20250517-0100", "event": "JobSucceeded", "totalRowsProcessed": 0, "durationMs": 5000, "status": "Succeeded"}
+]

@@ -1,0 +1,56 @@
+{
+  "scenario_id": "DEPEND_002_optum_pharmacy_001",
+  "taxonomy_version": "0.1",
+  "failure_code": "DEPEND_002",
+  "failure_category": "Upstream Dependency Failure",
+  "description": "Upstream job completed with a success status but wrote zero rows (silent failure)",
+
+  "pipeline": "optum-pharmacy-claims-nightly",
+  "run_date": "2025-05-17",
+  "job_ids": {
+    "jenkins": "build-20250517-0100",
+    "adf": "adf-run-20250517-0100",
+    "databricks": "db-run-20250517-0100",
+    "synapse": "syn-run-20250517-0100"
+  },
+
+  "evaluation_dimensions": {
+    "system_identification": {
+      "correct_answer": "Azure Data Factory (adf-pharmacy-pos-extract)",
+      "note": "ADF is the origin of the failure. All downstream tools processed zero rows correctly and are not at fault."
+    },
+    "error_classification": {
+      "correct_answer": "DEPEND_002",
+      "note": "Silent failure. ADF reported Succeeded with totalRowsExtracted: 0. No error was raised."
+    },
+    "causal_chain_accuracy": {
+      "correct_answer": [
+        "POS pharmacy source returned 0 rows for query window 2025-05-16",
+        "ADF wrote empty parquet file to ADLS (fileSizeBytes: 1024, rowsWritten: 0)",
+        "Databricks ingested 0 rows, completed all transform steps in 5s (baseline: ~267s)",
+        "Synapse inserted 0 rows to claims_dw.dbo.pharmacy_claims",
+        "Downstream consumers received empty dataset at morning read"
+      ],
+      "error_surfaces_at": "Downstream API (consumer layer)",
+      "failure_originates_at": "Azure Data Factory (extract layer)",
+      "note": "Causal chain accuracy requires tracing origin to ADF, not to Databricks or Synapse where row count of 0 is also visible."
+    },
+    "fix_correctness": {
+      "correct_answer": "Investigate POS pharmacy source system for 2025-05-16 query window. Confirm whether source data exists. If data exists, re-run adf-pharmacy-pos-extract for the affected date window and trigger downstream reprocessing. If source data is absent, escalate to pharmacy POS vendor.",
+      "preventive_fix": "Add row count validation step to ADF pipeline that raises a failure status when extracted row count is below threshold. Suggested: 0 rows triggers pipeline failure, not success."
+    }
+  },
+
+  "diagnostic_signals": [
+    {"source": "jenkins", "signal": "Total pipeline duration 33s vs baseline 7min 18s", "visibility": "low — requires knowledge of baseline duration"},
+    {"source": "adf", "signal": "rowsRead: 0, rowsWritten: 0, fileSizeBytes: 1024", "visibility": "high — explicit in structured log"},
+    {"source": "databricks", "signal": "rowsIngested: 0, durationMs: 5000 vs baseline 267000", "visibility": "medium — requires duration comparison"},
+    {"source": "synapse", "signal": "rowsInserted: 0", "visibility": "high — explicit in structured log"}
+  ],
+
+  "common_misdiagnoses": [
+    "Reporting Databricks as the failing system because rowsProcessed: 0 is visible there",
+    "Reporting Synapse as the failing system because rowsInserted: 0 is visible there",
+    "Reporting no failure because all systems returned status: Succeeded"
+  ]
+}
